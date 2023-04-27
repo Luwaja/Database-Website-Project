@@ -1,0 +1,45 @@
+mysql -u Luwaja -p''<<EOFMYSQL
+use project;
+show tables;
+
+DROP TABLE APPLICATIONS;
+DROP TABLE JOBS;
+DROP TABLE STUDENTS;
+
+CREATE TABLE STUDENTS
+(
+    ID int NOT NULL,
+    NAME char(50) NOT NULL,
+    MAJOR char(50) NOT NULL,
+    PRIMARY KEY (ID)
+);
+
+CREATE TABLE JOBS
+(
+    ID int NOT NULL,
+    COMPANY_NAME char(50) NOT NULL,
+    TITLE char(50) NOT NULL,
+    SALARY int NOT NULL,
+    DESIRED_MAJOR char(50) NOT NULL,
+    PRIMARY key (ID)
+);
+
+ CREATE TABLE APPLICATIONS
+(
+    STUDENT_ID int NOT NULL,
+    JOB_ID int NOT NULL,
+    FOREIGN KEY (STUDENT_ID) REFERENCES STUDENTS(ID),
+    FOREIGN KEY (JOB_ID) REFERENCES JOBS(ID)
+
+);
+
+INSERT INTO STUDENTS VALUES (1, 'Luke James','Computer Science');
+INSERT INTO STUDENTS VALUES (2, 'Amy Keller','Psychology');
+
+INSERT INTO JOBS VALUES (100, 'Toshiba', 'Software Engineering', 40000, 'Computer Science');
+INSERT INTO JOBS VALUES (200, 'Arisa Health', 'Qualified Behavioral Health Provider', 30000, 'Psychology');
+
+INSERT INTO APPLICATIONS VALUES (1, 100);
+INSERT INTO APPLICATIONS VALUES (2, 200);
+
+EOFMYSQL
